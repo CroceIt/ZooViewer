@@ -1,8 +1,10 @@
-# ZooViewer
+## Zookeeper可视化客户端ZooViewer
 
-[![Project Status: Unsupported – The project has reached a stable, usable state but the author(s) have ceased all work on it. A new maintainer may be desired.](http://www.repostatus.org/badges/latest/unsupported.svg)](http://www.repostatus.org/#unsupported)
+Zookeeper的可视化客户端工具，可以对集群中数据节点进行查看和操作。
 
-
-ZooKeeper configuration viewer
-
-
+## 基本功能
+- 实时显示Zookeeper集群节点数据
+- 查看节点数据
+- 更新节点数据值
+- 删除节点
+- 添加节点

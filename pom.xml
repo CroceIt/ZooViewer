@@ -1,15 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.isammoc.zooviewer</groupId>
 	<artifactId>zooviewer</artifactId>
-	<version>0.6-SNAPSHOT</version>
-
+	<version>0.7-SNAPSHOT</version>
 	<name>ZooViewer</name>
 	<description>A graphical application to view and manage ZooKeeper
 	</description>
 	<inceptionYear>2010</inceptionYear>
 	<url>http://code.google.com/p/zooviewer/</url>
-
 	<licenses>
 		<license>
 			<name>GNU Lesser General Public License v3+</name>
@@ -17,18 +17,15 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-
 	<scm>
 		<url>http://code.google.com/p/zooviewer/source/browse/trunk</url>
 		<connection>scm:svn:http://zooviewer.googlecode.com/svn/trunk</connection>
 		<developerConnection>scm:svn:https://zooviewer.googlecode.com/svn/trunk</developerConnection>
 	</scm>
-
 	<issueManagement>
 		<system>Google Code Issue Tracking</system>
 		<url>http://code.google.com/p/zooviewer/issues/list</url>
 	</issueManagement>
-
 	<distributionManagement>
 		<downloadUrl>http://code.google.com/p/zooviewer/downloads/list</downloadUrl>
 		<repository>
@@ -51,7 +48,6 @@
 			<url>scm:svn:https://zooviewer.googlecode.com/svn/site</url>
 		</site>
 	</distributionManagement>
-
 	<developers>
 		<developer>
 			<name>Sébastien BREVET</name>
@@ -60,7 +56,6 @@
 			<name>Franck LEFEVRE</name>
 		</developer>
 	</developers>
-
 	<build>
 		<extensions>
 			<extension>
@@ -81,29 +76,46 @@
 		</extensions>
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
 				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>../lib/</classpathPrefix>
-							<mainClass>net.isammoc.zooviewer.App</mainClass>
-						</manifest>
-					</archive>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>net.isammoc.zooviewer.App</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2-beta-5</version>
+				<version>3.1.1</version>
 				<configuration>
 					<descriptors>
 						<descriptor>src/main/assembly/bin.xml</descriptor>
@@ -114,25 +126,14 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.hadoop</groupId>
+			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
-			<version>3.3.1</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jmxri</artifactId>
-					<groupId>com.sun.jmx</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jmxtools</artifactId>
-					<groupId>com.sun.jdmk</groupId>
-				</exclusion>
-			</exclusions>
+			<version>3.5.5</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
-			<type>jar</type>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
